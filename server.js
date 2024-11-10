@@ -1,17 +1,45 @@
-const express = require("express")
-
+const express = require("express");
 const app = express();
 
-app.get("/",(req, res) =>{
-    res.send("Hello world there")
-})
+// Middleware to parse JSON request bodies
+app.use(express.json());
 
-app.post("/register", (res, req) {
-    req.body.email = req.body.email.trim();
+app.get("/", (req, res) => {
+  res.send("Hello world there");
+});
 
-    if (!req.body.username){
-        errors.push("You must enter a username")
-    }
-})
+app.get("/api/register", (req, res) => {
+  res.send("Welcome to Lost n Found");
+});
 
-app.listen(5000)
+app.post("/api/register", (req, res) => {
+  const errors = [];
+  const { email, password } = req.body;
+
+  if (!email || !email.trim()) {
+    errors.push("You must enter an email");
+  }
+
+  if (!password) {
+    errors.push("You must enter a password");
+  }
+
+  if (errors.length > 0) {
+    return res.status(400).json({ errors });
+  }
+
+  try {
+    res.status(201).json({
+      message: "Registration successful",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "An error occurred o!",
+      error: error.message,
+    });
+  }
+});
+
+app.listen(5000, () => {
+  console.log("Server is running on port 5000. Damn!!");
+});
