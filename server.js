@@ -1,8 +1,18 @@
-const express = require("express");
+import express from "express";
+import { connectDB } from "./db/connectDB.js";
+import cors from "cors";
+import dotenv from "dotenv"
+
+dotenv.config();
 const app = express();
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("Hello world there");
@@ -30,6 +40,7 @@ app.post("/api/register", (req, res) => {
 
   try {
     res.status(201).json({
+      status: 201,
       message: "Registration successful",
     });
   } catch (error) {
@@ -41,5 +52,6 @@ app.post("/api/register", (req, res) => {
 });
 
 app.listen(5000, () => {
+    connectDB();
   console.log("Server is running on port 5000. Damn!!");
 });
