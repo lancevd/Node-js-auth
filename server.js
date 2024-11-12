@@ -5,6 +5,7 @@ import dotenv from "dotenv"
 
 dotenv.config();
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
@@ -51,7 +52,7 @@ app.post("/api/register", (req, res) => {
   }
 });
 
-app.listen(5000, () => {
+app.listen(PORT, () => {
     connectDB();
-  console.log("Server is running on port 5000. Damn!!");
+  console.log("Server is running on port: ", 5000);
 });

@@ -1,5 +1,15 @@
-export const register = (req, res) => {
-  res.send("Register");
+export const register = async (req, res) => {
+  const {email, password, firstName, lastName} = req.body
+
+  try {
+    if (!email || !password || !firstName || !lastName) {
+      res.status(400).send("Please fill all fields")
+    }
+
+  } catch (error) {
+    
+  }
+
 }
 
 export const login = (req, res) => {
