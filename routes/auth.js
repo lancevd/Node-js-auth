@@ -3,6 +3,8 @@ import { forgot, login, logout, register, resend, reset, verify } from '../contr
 
 const router = express.Router()
 
+// router.get('/page', console.log("Hellow there"))
+
 router.post('/register', register)
 
 router.post('/login', login)

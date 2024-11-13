@@ -1,5 +1,6 @@
 import express from "express";
 import { connectDB } from "./db/connectDB.js";
+import authRoutes from "./routes/auth.js"
 import cors from "cors";
 import dotenv from "dotenv"
 
@@ -19,38 +20,9 @@ app.get("/", (req, res) => {
   res.send("Hello world there");
 });
 
-app.get("/api/register", (req, res) => {
-  res.send("Welcome to Lost n Found");
-});
 
-app.post("/api/register", (req, res) => {
-  const errors = [];
-  const { email, password } = req.body;
-
-  if (!email || !email.trim()) {
-    errors.push("You must enter an email");
-  }
-
-  if (!password) {
-    errors.push("You must enter a password");
-  }
-
-  if (errors.length > 0) {
-    return res.status(400).json({ errors });
-  }
-
-  try {
-    res.status(201).json({
-      status: 201,
-      message: "Registration successful",
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: "An error occurred o!",
-      error: error.message,
-    });
-  }
-});
+// Routes
+app.use('/api/auth', authRoutes)
 
 app.listen(PORT, () => {
     connectDB();
