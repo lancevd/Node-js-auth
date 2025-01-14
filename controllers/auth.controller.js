@@ -45,7 +45,7 @@ export const register = async (req, res) => {
     res.status(201).json({
       message: "User created successfully",
       success: true,
-      user: { ...user._doc, password: null },
+      user: { ...user._doc, password: undefined },
     });
   } catch (error) {
     res.status(500).json({
