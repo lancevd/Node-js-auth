@@ -12,12 +12,16 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:5000",
   })
 );
 
 app.get("/", (req, res) => {
   res.send("Hello world there");
+});
+
+app.get("/api", (req, res) => {
+  res.send("API is ready");
 });
 
 
