@@ -41,6 +41,9 @@ export const register = async (req, res) => {
     // JWT authentication
     generateTokenAndSetCookie(res, user._id);
 
+    // send token to email
+    sendVerificationEmail(user.email, verificationToken);
+
     console.log("passed");
     res.status(201).json({
       message: "User created successfully",
