@@ -1,6 +1,6 @@
 import express from "express";
 import { connectDB } from "./db/connectDB.js";
-import authRoutes from "./routes/auth.js"
+import auth from "./routes/auth.js"
 import cors from "cors";
 import dotenv from "dotenv"
 
@@ -26,7 +26,7 @@ app.get("/api", (req, res) => {
 
 
 // Routes
-app.use('/api/auth', authRoutes)
+app.use('/api/auth', auth)
 
 app.listen(PORT, () => {
     connectDB();
