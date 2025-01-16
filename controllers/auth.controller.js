@@ -59,7 +59,35 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = (req, res) => {
+export const verifyEmail = async (req, res) => {
+  const { verificationCode } = req.body;
+
+  try {
+    const user = await User.findOne({ 
+      verificationToken: verificationCode,
+      verificationTokenExpiresAt: { $gt: Date.now() },
+     });
+
+     if (!user) {
+       throw new Error("Invalid or expired verification code");
+     }
+
+      user.isVerified = true;
+      user.verificationToken = undefined;
+      user.verificationTokenExpiresAt = undefined;
+      await user.save();
+
+      await sendWelcomeEmail(user.email, user.firstName);
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+      success: false,
+    });
+  }
+}
+
+export const login = async (req, res) => {
   res.send("Login");
 };
 
