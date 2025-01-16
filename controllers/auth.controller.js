@@ -72,7 +72,7 @@ export const verifyEmail = async (req, res) => {
       throw new Error("Invalid or expired verification code");
     }
 
-    user.isVerified = true;
+    user.verified = true;
     user.verificationToken = undefined;
     user.verificationTokenExpiresAt = undefined;
     await user.save();
