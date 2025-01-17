@@ -128,7 +128,7 @@ export const login = async (req, res) => {
   }
 };
 
-export const logout = (req, res) => {
+export const logout = async (req, res) => {
   res.clearCookie("token").send("Logged out");
 
   res.status(200).json({
@@ -137,8 +137,23 @@ export const logout = (req, res) => {
   });
 };
 
-export const forgot = (req, res) => {
-  res.send("Forgot Password");
+export const forgot = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({
+        message: "User does not exist. Check the email and try again",
+        success: false,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+      success: false,
+    });
+  }
 };
 
 export const reset = (req, res) => {
