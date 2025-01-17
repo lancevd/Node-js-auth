@@ -163,6 +163,11 @@ export const forgot = async (req, res) => {
     // Send email
     await sendPasswordResetEmail(user.email, `https://localhost:3000/reset/${resetToken}`);
 
+    res.status(200).json({ 
+      message: "Password reset link sent to your email",
+      success: true,
+    });
+
   } catch (error) {
     res.status(500).json({
       message: error.message,
