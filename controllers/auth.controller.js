@@ -93,7 +93,39 @@ export const verifyEmail = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  res.send("Login");
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({
+        message: "Email not found",
+        success: false,
+      });
+    }
+
+    const isMatch = await bcryptjs.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({
+        message: "Invalid credentials",
+        success: false,
+      });
+    }
+
+    generateTokenAndSetCookie(res, user._id);
+
+    await user.save();
+    res.status(200).json({
+      message: "Logged in successfully",
+      success: true,
+      user: { ...user._doc, password: undefined },
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+      success: false,
+    });
+  }
 };
 
 export const logout = (req, res) => {
