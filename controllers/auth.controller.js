@@ -97,7 +97,12 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.send("Logout");
+  res.clearCookie("token").send("Logged out");
+
+  res.status(200).json({
+    message: "Logged out successfully",
+    success: true,
+  });
 };
 
 export const forgot = (req, res) => {
