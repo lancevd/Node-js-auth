@@ -15,7 +15,7 @@ router.post('/logout', logout)
 
 router.post('/forgot-password', forgot)
 
-router.post('/reset-password', reset)
+router.post('/reset-password/:token', reset)
 
 router.post('/verify-email', verify)
 
