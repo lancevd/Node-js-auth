@@ -1,8 +1,8 @@
 import express from "express";
 import { connectDB } from "./db/connectDB.js";
-import auth from "./routes/auth.js"
+import auth from "./routes/auth.js";
 import cors from "cors";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
 dotenv.config();
@@ -26,11 +26,10 @@ app.get("/api", (req, res) => {
   res.send("API is ready");
 });
 
-
 // Routes
-app.use('/api/auth', auth)
+app.use("/api/auth", auth);
 
 app.listen(PORT, () => {
-    connectDB();
+  connectDB();
   console.log("Server is running on port: ", 5000);
 });
