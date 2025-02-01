@@ -227,3 +227,12 @@ export const verify = (req, res) => {
 export const resend = (req, res) => {
   res.send("Resend Verification Email");
 };
+
+
+export const CheckAuth = (req, res) => {
+  try {
+    
+  } catch (error) {
+    
+  }
+}

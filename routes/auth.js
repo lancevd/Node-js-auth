@@ -1,5 +1,6 @@
 import express from 'express'
 import { forgot, login, logout, register, resend, reset, verify, verifyEmail } from '../controllers/auth.controller.js'
+import verifyToken from '../middleware/verifyToken.js'
 
 const router = express.Router()
 

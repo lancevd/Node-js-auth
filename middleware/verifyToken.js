@@ -21,6 +21,10 @@ export default function verifyToken(req, res, next) {
         req.userID = verified.userID; // This is the user ID from the token
     } catch (error) {
         
+        res.status(500).json({
+            message: error.message,
+            success: false
+        });
     }
 
  }
