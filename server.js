@@ -11,12 +11,12 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
-app.use(cookieParser());
 app.use(
   cors({
     origin: "http://localhost:5000",
   })
 );
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.send("Hello world there");
