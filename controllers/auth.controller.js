@@ -160,8 +160,8 @@ export const forgot = async (req, res) => {
     const resetToken = crypto.randomBytes(20).toString("hex");
     const resetTokenExpiresAt = Date.now() + 1 * 60 * 60 * 1000;
 
-    user.resetToken = resetToken;
-    user.resetTokenExpiresAt = resetTokenExpiresAt;
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpire = resetTokenExpiresAt;
 
     await user.save();
 
@@ -188,8 +188,8 @@ export const reset = async (req, res) => {
   const { password } = req.body;
   try {
     const user = await User.findOne({
-      resetToken: token,
-      resetTokenExpiresAt: { $gt: Date.now() },
+      resetPasswordToken: token,
+      resetPasswordExpire: { $gt: Date.now() },
     });
 
     if (!user) {
@@ -205,7 +205,7 @@ export const reset = async (req, res) => {
 
     await user.save();
 
-    await sendResetSuccessEmail(user.email);
+    await sendResetSuccessEmail(user.email, );
 
     res.status(200).json({
       message: "Password reset successfully",
