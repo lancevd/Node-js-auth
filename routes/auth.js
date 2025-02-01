@@ -12,7 +12,7 @@ router.post('/verify-email', verifyEmail)
 
 router.post('/login', login)
 
-router.post('check-auth', verifyToken, CheckAuth)
+router.get('/check-auth', verifyToken, CheckAuth)
 
 router.post('/logout', logout)
 
